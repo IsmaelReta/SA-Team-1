@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/core/interfaces/user';
+import { LoginService } from 'src/app/core/services/login.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/core/services/user.service';
 export class MyProfileComponent implements OnInit {
   form: FormGroup;  
   userData: any = {}
-  token: string | null 
+  token: string | null = null;
   idUser: number=0;
   userEdit: User = {
     id: 0,
@@ -27,9 +28,7 @@ export class MyProfileComponent implements OnInit {
   }
   
 
-  constructor(private userService: UserService, private fb: FormBuilder,) {
-    this.token =  localStorage.getItem('token');
-    this.getUserToken();
+  constructor(private userService: UserService, private fb: FormBuilder, private loginSvc: LoginService) {
 
     this.form = this.fb.group({
     firstName: ['', Validators.required],
@@ -40,6 +39,12 @@ export class MyProfileComponent implements OnInit {
    
 
   ngOnInit(): void {
+    this.loginSvc.token.subscribe(
+      (token) => {
+        this.token = token;
+        this.getUserToken();
+      }
+    )
   }
 
   getUserToken(){

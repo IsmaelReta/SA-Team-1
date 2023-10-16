@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CourseCategory } from 'src/app/core/interfaces/courseCategory';
 import { CourseCategoryService } from 'src/app/core/services/course-category.service';
+import { LoginService } from 'src/app/core/services/login.service';
 
 
 @Component({
@@ -12,17 +13,22 @@ import { CourseCategoryService } from 'src/app/core/services/course-category.ser
 export class NavbarComponent implements OnInit {
   coursesCategory: CourseCategory[]= [];
   dates: any={};
-  token: string | null= localStorage.getItem('token');
+  token: string | null = null;
   admin : boolean = false;
   logueado : boolean = false;
   register : boolean = false;
-  constructor(private courseCategoryService: CourseCategoryService, private router: Router) {
+  constructor(private courseCategoryService: CourseCategoryService, private loginSvc: LoginService, private router: Router) {
     
     this.getCourseCategory();
-    this.getToken();
    }
 
   ngOnInit(): void {
+    this.loginSvc.token.subscribe(
+      (token) => {
+        this.token = token;
+        this.getToken();
+      }
+    )
   }
   getCourseCategory(){
     this.courseCategoryService.getCourseCategory().subscribe(
@@ -36,9 +42,9 @@ export class NavbarComponent implements OnInit {
     if (this.token) {
       try {
         const tokenPayload = JSON.parse(atob(this.token.split('.')[1]));
-        console.log(tokenPayload)
         this.dates.isAdmin = tokenPayload.isAdmin;
-        this.logueado = true
+        this.logueado = true;
+        this.register = false;
         if(this.dates.isAdmin){
           this.admin = true
         }
