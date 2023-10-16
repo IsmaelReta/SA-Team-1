@@ -60,16 +60,12 @@ export class LoginComponent implements OnInit {
           email: this.form.value.email,
           password: this.form.value.password,
         }
-        this.loginSvc.login(this.loginData).subscribe(
-          (userData) => {
-            this.token = <any>userData
-            localStorage.setItem('token', this.token.token);
-            this.router.navigateByUrl('');
+        try {
+          this.loginSvc.login(this.loginData);
+
+        } catch {
+          this.loginError = "Email o contraseña incorrecta.";
+        }
+        this.router.navigateByUrl('');
             this.form.reset();
-          },
-          (errorData) => {
-            console.error(errorData);
-            this.loginError = "Email o contraseña incorrecta.";
-          },
-      )
       }};
