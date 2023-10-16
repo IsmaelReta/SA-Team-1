@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CourseCategory } from 'src/app/core/interfaces/courseCategory';
 import { CourseCategoryService } from 'src/app/core/services/course-category.service';
 import { LoginService } from 'src/app/core/services/login.service';
@@ -16,7 +17,7 @@ export class NavbarComponent implements OnInit {
   admin : boolean = false;
   logueado : boolean = false;
   register : boolean = false;
-  constructor(private courseCategoryService: CourseCategoryService, private loginSvc: LoginService) {
+  constructor(private courseCategoryService: CourseCategoryService, private loginSvc: LoginService, private router: Router) {
     
     this.getCourseCategory();
    }
@@ -59,4 +60,5 @@ export class NavbarComponent implements OnInit {
     localStorage.clear();
     window.location.reload();
   }
+
 }
