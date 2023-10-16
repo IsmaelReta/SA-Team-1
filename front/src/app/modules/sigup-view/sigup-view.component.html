@@ -51,7 +51,7 @@
     <button [disabled]="form.invalid" class="submit" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Suscribirse</button>
     <!-- <p class="warnings" id="warnings"></p> -->
     <div>
-    <a href="#" routerLink="/login">Ya tienes una cuenta?</a><br>
+    <a routerLink="/login">Ya tienes una cuenta?</a><br>
     </div>
     <img class="avatar" src="../../../assets/signup.img/fondo-signup.png" alt="">
 
@@ -70,7 +70,7 @@
         Te hemos enviado un CODIGO de verifiacion. Porfavor revisa tu correo electronico. El correo se envio a: <br> <b>{{user.email}}</b> 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" routerLink="/Login">Ir al Login</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" routerLink="/login">Ir al Login</button>
        
       </div>
       <img  class="img-logo" src="../../../assets/signup.img/LOGO1.png" alt="">
