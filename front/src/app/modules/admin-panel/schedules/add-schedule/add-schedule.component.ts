@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Course } from 'src/app/core/interfaces/course';
 import { Schedule } from 'src/app/core/interfaces/schedule';
 import { CourseService } from 'src/app/core/services/course.service';
+import { LoginService } from 'src/app/core/services/login.service';
 import { ScheduleService } from 'src/app/core/services/schedule.service';
 
 @Component({
@@ -14,6 +15,7 @@ import { ScheduleService } from 'src/app/core/services/schedule.service';
 })
 export class AddScheduleComponent implements OnInit {
   form: FormGroup;
+  admin: boolean = false;
   schedule: Schedule = {
     id: 0,
     where: "",
@@ -29,7 +31,8 @@ export class AddScheduleComponent implements OnInit {
     private scheduleService: ScheduleService,
     private courseService: CourseService,
     private router: Router,
-    private datePipe: DatePipe) { 
+    private datePipe: DatePipe,
+    private loginSvc: LoginService,) { 
       this.getCourses()
       this.form = this.fb.group({
         where:  ['', Validators.required],
@@ -46,8 +49,16 @@ export class AddScheduleComponent implements OnInit {
         active: true,
       });
     }
-
-  ngOnInit(): void {
+    ngOnInit(): void {
+      this.loginSvc.isAdmin.subscribe(
+        (isAdmin)=>{
+          this.admin = isAdmin
+          if(this.admin === false){
+            
+            this.router.navigateByUrl('');
+          }
+        }
+      )
   }
   getCourses(){
  this.courseService.getCourses().subscribe(

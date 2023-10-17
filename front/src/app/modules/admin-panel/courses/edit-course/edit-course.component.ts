@@ -5,6 +5,7 @@ import { CourseService } from 'src/app/core/services/course.service';
 import { Course } from 'src/app/core/interfaces/course';
 import { CourseCategoryService } from 'src/app/core/services/course-category.service';
 import { CourseCategory } from 'src/app/core/interfaces/courseCategory';
+import { LoginService } from 'src/app/core/services/login.service';
 @Component({
   selector: 'app-edit-course',
   templateUrl: './edit-course.component.html',
@@ -15,6 +16,7 @@ export class EditCourseComponent implements OnInit {
   form: FormGroup;
   id: number;
   recursos: any = [];
+  admin: boolean = false;
   course: Course = {
     id: 0,
     name: '',
@@ -34,7 +36,8 @@ export class EditCourseComponent implements OnInit {
     private courseService: CourseService,
     private router: Router,
     private aRouter: ActivatedRoute,
-    private courseCategoryService :CourseCategoryService
+    private courseCategoryService :CourseCategoryService,
+    private loginSvc: LoginService,
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -53,8 +56,16 @@ export class EditCourseComponent implements OnInit {
     this.getById(this.id);
     this.getCategories();
   }
-
-  ngOnInit(): void {}
+ngOnInit(): void {
+  this.loginSvc.isAdmin.subscribe(
+    (isAdmin)=>{
+      this.admin = isAdmin
+      if(this.admin === false){
+        
+        this.router.navigateByUrl('');
+      }
+    }
+  )}
   getById(id: number) {
     this.courseService.getCourseById(id).subscribe((data) => {
       this.recursos = data;

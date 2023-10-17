@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/core/interfaces/user';
+import { LoginService } from 'src/app/core/services/login.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -7,7 +9,7 @@ import { UserService } from 'src/app/core/services/user.service';
   templateUrl: './admins.component.html',
   styleUrls: ['./admins.component.css'],
 })
-export class AdminsComponent {
+export class AdminsComponent implements OnInit {
   users: User[] = [];
   userId: number = 0;
   user: User = {
@@ -28,10 +30,21 @@ export class AdminsComponent {
       },
     ],
   };
-  constructor(private userService: UserService) {
+  admin: boolean = false;
+  constructor(private userService: UserService,private loginSvc: LoginService,private router: Router) {
     this.getUsers();
   }
-
+  ngOnInit(): void {
+    this.loginSvc.isAdmin.subscribe(
+      (isAdmin)=>{
+        this.admin = isAdmin
+        if(this.admin === false){
+          
+          this.router.navigateByUrl('');
+        }
+      }
+    )
+    }
   getUsers() {
     this.userService.getUsers().subscribe(
       (data) => {

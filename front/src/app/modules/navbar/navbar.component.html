@@ -59,13 +59,13 @@
         <li class="nav-item col text-center" *ngIf="admin">
           <a class="nav-link active text-white fs-5" routerLink="/admin/panel">Panel</a>
         </li>
-        <li class="nav-item col-1 text-center" *ngIf="register" style="display: flex; flex-direction: column; align-items: flex-end;">
+        <li class="nav-item col-1 text-center" *ngIf="!register" style="display: flex; flex-direction: column; align-items: flex-end;">
           <button class="nav-link active fs-5 m-1 btn" id="buttonsNavBar"  routerLink="/signup" ><b>Registro</b></button>
         </li>
-         <li class="nav-item col-2 text-center" *ngIf="register" style="display: flex; flex-direction: column; align-items: flex-end;">
+         <li class="nav-item col-2 text-center" *ngIf="!register" style="display: flex; flex-direction: column; align-items: flex-end;">
           <button class="nav-link active fs-5 btn m-1 " id="buttonsNavBar" routerLink="/login" style="padding-left: 18px;padding-right: 18px;"><b>Iniciar Sesion</b></button>
         </li>
-        <li class="nav-item dropdown col text-center" *ngIf="logueado" style="display: flex; flex-direction: column; align-items:center;">
+        <li class="nav-item dropdown col text-center" *ngIf="register" style="display: flex; flex-direction: column; align-items:center;">
           <button class="nav-link dropdown-toggle text-white btn fs-5" data-bs-toggle="dropdown" style="color: #fff; background-color:orange ; padding-left: 10px;padding-right: 10px;font-family: sans-serif;"><b>Mi Perfil</b></button>
           <ul class="dropdown-menu" style="background: orange;width: 100%;">
             <li><a class="dropdown-item itemColor text-white" style="font-size: 18px;" href="/profile"><b>Mis datos</b></a></li>

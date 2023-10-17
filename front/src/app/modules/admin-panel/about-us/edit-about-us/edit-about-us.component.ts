@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AboutUsService } from 'src/app/core/services/about-us.service';
 import { AboutUS } from 'src/app/core/interfaces/about-us';
+import { LoginService } from 'src/app/core/services/login.service';
 
 @Component({
   selector: 'app-edit-about-us',
@@ -21,12 +22,13 @@ export class EditAboutUsComponent implements OnInit {
     priority: 0,
     active: false,
   };
-
+  admin: boolean = false;
   constructor(
     private fb: FormBuilder,
     private aboutusService: AboutUsService,
     private router: Router,
     private aRouter: ActivatedRoute,
+    private loginSvc: LoginService,
   ) {
     this.form = this.fb.group({
       title: '',
@@ -40,7 +42,17 @@ export class EditAboutUsComponent implements OnInit {
     this.getById(this.id);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginSvc.isAdmin.subscribe(
+      (isAdmin)=>{
+        this.admin = isAdmin
+        if(this.admin === false){
+          
+          this.router.navigateByUrl('');
+        }
+      }
+    )
+    }
   getById(id: number) {
     this.aboutusService.getAboutById(id).subscribe((data) => {
       this.form.setValue({
