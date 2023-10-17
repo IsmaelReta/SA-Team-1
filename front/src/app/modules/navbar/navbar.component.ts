@@ -15,7 +15,6 @@ export class NavbarComponent implements OnInit {
   dates: any={};
   token: string | null = null;
   admin : boolean = false;
-  logueado : boolean = false;
   register : boolean = false;
   constructor(private courseCategoryService: CourseCategoryService, private loginSvc: LoginService, private router: Router) {
     
