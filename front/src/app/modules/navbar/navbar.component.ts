@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
   token: string | null = null;
   admin : boolean = false;
   register : boolean = false;
+  codigo: string=""
   constructor(private courseCategoryService: CourseCategoryService, private loginSvc: LoginService, private router: Router) {
     
     this.getCourseCategory();
