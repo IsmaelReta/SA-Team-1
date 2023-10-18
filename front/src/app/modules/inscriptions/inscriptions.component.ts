@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/core/services/login.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -6,15 +8,27 @@ import { UserService } from 'src/app/core/services/user.service';
   templateUrl: './inscriptions.component.html',
   styleUrls: ['./inscriptions.component.css'],
 })
-export class InscriptionsComponent {
+export class InscriptionsComponent implements OnInit {
   id: number = 0;
   token: string | null = localStorage.getItem('token');
   userData: any = {};
   inscriptions: [] = [];
-  constructor(private userService: UserService) {
+  isRegistered: boolean = false;
+  constructor(private userService: UserService,private loginSvc: LoginService,private router : Router,) {
     this.getToken();
     
     
+  }
+  
+  ngOnInit(): void {
+    this.loginSvc.isRegistered.subscribe(
+      (isRegistered)=>{
+        this.isRegistered = isRegistered
+        if(this.isRegistered == false ){
+          this.router.navigateByUrl('');
+        }
+      }
+    )
   }
   getToken() {
     if (this.token) {

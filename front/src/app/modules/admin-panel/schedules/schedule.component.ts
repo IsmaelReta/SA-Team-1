@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Schedule } from 'src/app/core/interfaces/schedule';
+import { LoginService } from 'src/app/core/services/login.service';
 import { ScheduleService } from 'src/app/core/services/schedule.service';
 @Component({
   selector: 'app-schedule',
@@ -10,11 +11,21 @@ import { ScheduleService } from 'src/app/core/services/schedule.service';
 export class ScheduleComponent implements OnInit {
   schedules: Schedule[] = [];
   id:number=0;
-  constructor(private scheduleService: ScheduleService, private router: Router) { 
+  admin: boolean = false;
+  constructor(private scheduleService: ScheduleService, private loginSvc: LoginService, private router: Router){
+    
     this.getCategories();
   }
-
   ngOnInit(): void {
+    this.loginSvc.isAdmin.subscribe(
+      (isAdmin)=>{
+        this.admin = isAdmin
+        if(this.admin === false){
+          
+          this.router.navigateByUrl('');
+        }
+      }
+    )
   }
   getCategories() {
     this.scheduleService.getSchedule().subscribe(

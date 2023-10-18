@@ -15,8 +15,8 @@ export class NavbarComponent implements OnInit {
   dates: any={};
   token: string | null = null;
   admin : boolean = false;
-  logueado : boolean = false;
   register : boolean = false;
+  codigo: string=""
   constructor(private courseCategoryService: CourseCategoryService, private loginSvc: LoginService, private router: Router) {
     
     this.getCourseCategory();
@@ -26,9 +26,20 @@ export class NavbarComponent implements OnInit {
     this.loginSvc.token.subscribe(
       (token) => {
         this.token = token;
-        this.getToken();
       }
     )
+    this.loginSvc.isAdmin.subscribe(
+      (isAdmin)=>{
+        this.admin = isAdmin
+      }
+    )
+    this.loginSvc.isRegistered.subscribe(
+      (isRegistered)=>{
+        this.register = isRegistered
+      }
+    )
+    
+    
   }
   getCourseCategory(){
     this.courseCategoryService.getCourseCategory().subscribe(
@@ -38,24 +49,7 @@ export class NavbarComponent implements OnInit {
       (err) => console.log(err)
     );
   }
-  getToken(){
-    if (this.token) {
-      try {
-        const tokenPayload = JSON.parse(atob(this.token.split('.')[1]));
-        this.dates.isAdmin = tokenPayload.isAdmin;
-        this.logueado = true;
-        this.register = false;
-        if(this.dates.isAdmin){
-          this.admin = true
-        }
-      } catch (error) {
-        
-      }
-    }else{
-      this.register = true
-      this.admin = false
-    }
-  }
+
   logOut(){
     localStorage.clear();
     window.location.reload();

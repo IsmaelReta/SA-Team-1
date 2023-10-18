@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
   const { email, password } = req.body;
   const user = await userProvider.validateUser(email, password);
 
-  if (user) {
+  if (user != null) {
     const token = jwt.sign({ id: user.id, email, isAdmin: user.admin },
       authmw.SECRET);
     res.json({ token });
