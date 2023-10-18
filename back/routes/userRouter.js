@@ -1,12 +1,13 @@
 const express = require('express');
 const { body } = require('express-validator');
 const { UserController } = require('../controllers');
+const { authMW, adminCheck } = require('../middleware/authentication.middleware');
 
 const router = express.Router();
 router.get('/:userId', UserController.getUserById);
 
 router.delete('/admin/:userId', UserController.deleteAdmins);
-router.get('/', UserController.getUsers);
+router.get('/', authMW, adminCheck, UserController.getUsers);
 router.get('/email/:email', UserController.getUserByEmail);
 router.post(
   '/',
