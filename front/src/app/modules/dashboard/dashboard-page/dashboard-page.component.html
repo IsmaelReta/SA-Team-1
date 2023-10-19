@@ -1,7 +1,7 @@
-<!-- <body class="container-fluid"> -->
-    <div>
+ <div>
+    <div class="row" style="width: 100%;">
     <link href="https://fonts.googleapis.com/css2?family=Aoboshi+One&display=swap" rel="stylesheet">
-    <div class="subheader row">
+    <div class="subheader" >
         <h2>¡Empieza a aprender con nuestros cursos!</h2>
     </div>
     <h3>Hacé click en el curso que te interese para conocer más.</h3>
@@ -10,7 +10,9 @@
         <div class = "courseinfo col" *ngFor = "let course of courses">
             <a routerLink="/curso/{{course.id}}" style="text-decoration: none;">
             <button>
+                <div>
                 <img src={{course.image}} class="image-fluid">
+                </div>
             <h2>{{course.name}}</h2>
             <p>{{course.description}}</p>
             </button>
@@ -31,4 +33,6 @@
     <div class="button1" *ngIf = "allCourses"><button (click) = "showAllCourses()">Ver menos cursos</button></div>
 
     </div>
+
+</div>
 

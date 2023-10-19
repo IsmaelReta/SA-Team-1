@@ -14,6 +14,24 @@
     font-size: 25px;
 }
 
+.otros{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+}
+.row .col{
+    background-color: white;
+    
+}
+
+.row .col img{
+    width:200px;
+    height: 200px;
+    object-fit: contain;
+    
+}
 
 .verMas{
     margin: 10px 0 20px 0;
@@ -25,16 +43,17 @@
     border-radius: 50px;
     font-size: 20px;
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    float: right;
+}
+.verMas:hover{
+    background-color: rgb(207, 136, 5);
 }
 .options{
     box-shadow: 1px 2px 5px #000; 
     width: 250px;
 }
-@media (max-width: 768px) {
-    .options{
-        width: 350px;
-    }
-}
+
 
 
 /* ___-------------PIE DE PAGINA----------- */
@@ -118,4 +137,15 @@
     overflow-x: auto;
     margin-left: 0.1rem;
     margin-right: 0.1rem;
+}
+
+
+
+
+/* ---------------------------------------> */
+
+@media (max-width: 768px) {
+    .options{
+        width: 350px;
+    }
 }
