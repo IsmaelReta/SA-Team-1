@@ -36,7 +36,7 @@
         class="img-thumbnail m-2"
         src="{{ course.image }}"
         alt=""
-        height="350px"
+        height="300px"
       />
     </div>
   </div>
@@ -103,7 +103,7 @@
     </div>
   </div>
   <div class="row p-2 m-2 rounded" style="background-color: orange">
-    <h2>OTROS CURSOS QUE TE PODRIAN INTERESAR</h2>
+    <h2 class="otros">OTROS CURSOS QUE TE PODRIAN INTERESAR</h2>
   </div>
 
   <div class="row">
@@ -111,8 +111,8 @@
       *ngFor="let courseOption of coursesSelect.slice(0, 4)"
       class="col p-2 m-2 rounded options"
     >
-      <div>
-        <img width="200" src="{{ courseOption.image }}" alt="" />
+      <div class="fotoC">
+        <img width="200"   src="{{ courseOption.image }}" alt="" />
         <h5>
           <b>{{ courseOption.name }}</b>
         </h5>

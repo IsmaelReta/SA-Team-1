@@ -2,8 +2,13 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    
 }
 
+.navbar{
+    display: flex;
+    width: 100%;
+}
 .logo{
     height: 50px;
     width: 120px;
@@ -25,4 +30,13 @@
     background-color:orange ; 
     padding-top: 3px; 
     padding-bottom: 3px;
+}
+
+@media (max-width:991px){
+    .nav-item{
+        margin: 0 auto;
+    }
+    .nav-item .pad{
+        padding: 5px;
+    }
 }
