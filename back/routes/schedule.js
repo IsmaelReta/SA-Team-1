@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator');
 const { ScheduleController } = require('../controllers');
-const { authMW, adminCheck } = require('../middleware/authentication.middleware');
+/* const { authMW, adminCheck } = require('../middleware/authentication.middleware'); */
 
 router.get('/', ScheduleController.getSchedules);
 router.get('/:ScheduleId', ScheduleController.getScheduleById);
@@ -16,7 +16,7 @@ router.post(
   body('day').isString(),
   body('schedule').isString(),
   body('course').isString(),
-  authMW, adminCheck,
+  /* authMW, adminCheck, */
   ScheduleController.createSchedule,
 );
 
@@ -26,10 +26,10 @@ router.put(
   body('where').isString(),
   body('day').isString(),
   body('schedule').isString(),
-  authMW, adminCheck,
+  /* authMW, adminCheck, */
   ScheduleController.updateSchedule,
 );
 
-router.delete('/:ScheduleId', authMW, adminCheck, ScheduleController.deleteSchedule);
+router.delete('/:ScheduleId', /* authMW, adminCheck, */ ScheduleController.deleteSchedule);
 
 module.exports = router;

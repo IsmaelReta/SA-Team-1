@@ -3,8 +3,7 @@ const Express = require('express');
 // Middlewares:
 const rootPath = require('../middleware/root_path.middleware');
 const errors = require('../middleware/error_handler.middleware');
-const { authMW } = require('../middleware/authentication.middleware');
-const { adminCheck } = require('../middleware/authentication.middleware');
+const { authMW, adminCheck } = require('../middleware/authentication.middleware');
 
 const app = Express();
 
@@ -29,9 +28,6 @@ app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/aboutus', aboutUSRouter);
 app.use('/api/registers', registerRouter);
-/* TODO cuando se haga el merge de la rama US1 agregar
-  authMW y adminCheck a los endpoints que corresponda */
-
 
 // endpoints arriba de esta linea
 app.use('/', rootPath.handler);
