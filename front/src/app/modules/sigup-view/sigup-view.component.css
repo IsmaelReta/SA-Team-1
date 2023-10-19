@@ -197,6 +197,7 @@ span{
         width: 710px;
         height: 620px;
         padding: 20px 15px;
+        margin-top: 50px;
     }
 
     .signup-a .avatar{
@@ -230,7 +231,40 @@ span{
     margin: 0px 0px; 
 }
 }
+@media only screen and (max-width: 730px){
 
+    .signup-a{
+        width: 400px;
+        height: 620px;
+        padding: 20px 15px;
+        background: url(../../../assets/signup.img/LOGO1.png);
+        background-size: 70px;
+        background-repeat: no-repeat;
+        background-position:220px 5px;
+        background-color: white;
+        margin-top: 50px;
+    }
+
+    .signup-a .avatar{
+        display: none;
+    }
+
+    .signup-a input[type="text"],
+    .signup-a input[type="password"],
+    .signup-a input[type="tel"],
+    .signup-a input[type="email"] {
+        width: 320px;
+    }
+
+    .signup-a .submit{
+        margin: 0 0 0 70px;
+    }
+    .signup-a a{
+        padding: 0px 0px 0px 100px;
+        margin: 0px 0px;
+        
+    }
+}
 @media only screen and (max-width: 480px){
     .signup-a{
         width: 295px;
@@ -241,11 +275,10 @@ span{
         background-repeat: no-repeat;
         background-position:220px 5px;
         background-color: white;
+        margin-top: 50px;
     }
 
-    .signup-a .avatar{
-        display: none;
-    }
+    
 
     .signup-a h1{
         margin-left: 0px;

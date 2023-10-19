@@ -31,3 +31,12 @@
     padding-top: 3px; 
     padding-bottom: 3px;
 }
+
+@media (max-width:991px){
+    .nav-item{
+        margin: 0 auto;
+    }
+    .nav-item .pad{
+        padding: 5px;
+    }
+}

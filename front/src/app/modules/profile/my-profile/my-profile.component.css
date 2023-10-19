@@ -1,6 +1,8 @@
 .container{
-  background-color: rgb(231, 231, 231);
+  background-color: white;
   padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .form-control{
