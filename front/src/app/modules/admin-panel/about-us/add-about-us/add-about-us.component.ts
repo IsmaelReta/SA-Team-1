@@ -4,6 +4,7 @@ import { AboutUS } from 'src/app/core/interfaces/about-us';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from 'src/app/core/services/login.service';
 
 @Component({
   selector: 'app-add-about-us',
@@ -22,11 +23,13 @@ export class AddAboutUsComponent {
     priority: 0,
     active: false,
   };
+  admin: boolean = false;
   constructor(
     private fb: FormBuilder,
     private aboutusService: AboutUsService,
     private router: Router,
     private aRouter: ActivatedRoute,
+    private loginSvc: LoginService,
   ) {
     this.form = this.fb.group({
       title: '',
@@ -47,7 +50,17 @@ export class AddAboutUsComponent {
     this.id = Number(aRouter.snapshot.paramMap.get('id'));
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginSvc.isAdmin.subscribe(
+      (isAdmin)=>{
+        this.admin = isAdmin
+        if(this.admin === false){
+          
+          this.router.navigateByUrl('');
+        }
+      }
+    )
+    }
 
   add() {
     this.aboutus = {

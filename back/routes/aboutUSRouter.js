@@ -1,6 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
 const { AboutUSController } = require('../controllers');
+/* const { authMW, adminCheck } = require('../middleware/authentication.middleware'); */
 
 const router = express.Router();
 router.get('/:aboutUSId', AboutUSController.getAboutUSById);
@@ -13,6 +14,7 @@ router.post(
   body('description').isString(),
   body('priority').isInt(),
   body('active').isBoolean(),
+  /* authMW, adminCheck, */
   AboutUSController.createAboutUS,
 );
 router.put(
@@ -23,8 +25,9 @@ router.put(
   body('description').isString(),
   body('priority').isInt(),
   body('active').isBoolean(),
+  /* authMW, adminCheck, */
   AboutUSController.updateAboutUS,
 );
-router.delete('/:aboutUSId', AboutUSController.deleteAboutUS);
+router.delete('/:aboutUSId', /* authMW, adminCheck, */ AboutUSController.deleteAboutUS);
 
 module.exports = router;

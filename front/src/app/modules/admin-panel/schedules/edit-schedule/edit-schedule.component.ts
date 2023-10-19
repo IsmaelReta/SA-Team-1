@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Schedule } from 'src/app/core/interfaces/schedule';
+import { LoginService } from 'src/app/core/services/login.service';
 import { ScheduleService } from 'src/app/core/services/schedule.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { ScheduleService } from 'src/app/core/services/schedule.service';
 export class EditScheduleComponent implements OnInit {
   form: FormGroup;
   id: number;
+  admin: boolean = false;
   schedules: Schedule = {
     id: 0,
     where: "",
@@ -24,7 +26,8 @@ export class EditScheduleComponent implements OnInit {
     private fb: FormBuilder,
     private scheduleService: ScheduleService,
     private router: Router,
-    private aRouter: ActivatedRoute
+    private aRouter: ActivatedRoute,
+    private loginSvc: LoginService,
   ) {
     this.form = this.fb.group({
       where:  ['', Validators.required],
@@ -36,7 +39,17 @@ export class EditScheduleComponent implements OnInit {
     this.getById(this.id);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginSvc.isAdmin.subscribe(
+      (isAdmin)=>{
+        this.admin = isAdmin
+        if(this.admin === false){
+          
+          this.router.navigateByUrl('');
+        }
+      }
+    )
+  }
   getById(id: number) {
     this.scheduleService.getScheduleById(id).subscribe((data) => {
       this.form.setValue({

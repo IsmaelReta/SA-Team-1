@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { CourseCategoryService } from 'src/app/core/services/course-category.service';
 import { CourseCategory } from 'src/app/core/interfaces/courseCategory';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from 'src/app/core/services/login.service';
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
@@ -16,6 +17,7 @@ export class AddCourseComponent {
   form: FormGroup;
   id: number;
   recursos: any = [];
+  admin: boolean = false;
   course: Course = {
     id: 0,
     name: '',
@@ -35,7 +37,8 @@ export class AddCourseComponent {
     private courseService: CourseService,
     private router: Router,
     private aRouter: ActivatedRoute,
-    private courseCategoryService :CourseCategoryService
+    private courseCategoryService :CourseCategoryService,
+    private loginSvc: LoginService,
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -66,8 +69,16 @@ export class AddCourseComponent {
     this.id = Number(aRouter.snapshot.paramMap.get('id'));
     this.getCategories();
   }
-
-  ngOnInit(): void {}
+ngOnInit(): void {
+  this.loginSvc.isAdmin.subscribe(
+    (isAdmin)=>{
+      this.admin = isAdmin
+      if(this.admin === false){
+        
+        this.router.navigateByUrl('');
+      }
+    }
+  )}
 
   getCategories() {
     this.courseCategoryService.getCourseCategory().subscribe(

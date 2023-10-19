@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/core/interfaces/user';
 import { LoginService } from 'src/app/core/services/login.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -28,7 +29,9 @@ export class MyProfileComponent implements OnInit {
   }
   
 
-  constructor(private userService: UserService, private fb: FormBuilder, private loginSvc: LoginService) {
+  isRegistered: boolean = false;
+
+  constructor(private userService: UserService, private fb: FormBuilder, private loginSvc: LoginService, private router: Router) {
 
     this.form = this.fb.group({
     firstName: ['', Validators.required],
@@ -36,9 +39,17 @@ export class MyProfileComponent implements OnInit {
     phone: ['', Validators.required],
     })
   }
-   
+ 
 
   ngOnInit(): void {
+    this.loginSvc.isRegistered.subscribe(
+      (isRegistered)=>{
+        this.isRegistered = isRegistered
+        if(this.isRegistered == false ){
+          this.router.navigateByUrl('');
+        }
+      }
+    )
     this.loginSvc.token.subscribe(
       (token) => {
         this.token = token;

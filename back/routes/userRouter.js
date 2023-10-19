@@ -1,12 +1,13 @@
 const express = require('express');
 const { body } = require('express-validator');
 const { UserController } = require('../controllers');
+/* const { authMW, adminCheck } = require('../middleware/authentication.middleware'); */
 
 const router = express.Router();
 router.get('/:userId', UserController.getUserById);
 
-router.delete('/admin/:userId', UserController.deleteAdmins);
-router.get('/', UserController.getUsers);
+router.delete('/admin/:userId', /* authMW, adminCheck, */ UserController.deleteAdmins);
+router.get('/', /* authMW, adminCheck, */ UserController.getUsers);
 router.get('/email/:email', UserController.getUserByEmail);
 router.post(
   '/',
@@ -19,6 +20,7 @@ router.post(
 router.patch(
   '/admins',
   body('userId').isInt(),
+  /* authMW, adminCheck, */
   UserController.patchAdmins,
 );
 router.delete(

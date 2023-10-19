@@ -200,14 +200,17 @@ const deleteUser = async (userId) => {
     throw ('Error:', error);
   }
 };
-const validateUser = async (email, password) => {
-  const userData = await getUserByEmail(email);
+const validateUser = async (emailSelect, password) => {
+  const userData = await User.findOne({
+    where: { email: emailSelect },
+  });
+  if (userData == null) { return null; }
   const hashedPassword = userData.password;
   const match = await bcrypt.compare(password, hashedPassword);
   if (match) {
     try {
       const user = await User.findOne({
-        where: { email, active: true },
+        where: { email: emailSelect, active: true },
       });
       if (user) {
         return user;
